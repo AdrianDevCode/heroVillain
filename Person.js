@@ -1,7 +1,7 @@
 class Person {
-    constructor(name, ) {
+    constructor(name) {
         this.name = name;
-        this.health = 100;
+        this.health = 10;
         this.weapon = null;
     }
     equipWeapon(weapon) {
