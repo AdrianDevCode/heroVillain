@@ -27,43 +27,41 @@ $(function () {
         heroWep: player.hero.equipWeapon(playerWeapon.heroWep),
         VillainWep: player.villain.equipWeapon(playerWeapon.villainWep)
     }
-    // hero attack button
-    $(".hero").on("click", ".heroAttack", function () {
-        let villainHP = player.hero.attack(player.villain);
-        player.villain.health = villainHP;
-
-        $(".villain").empty();
-        $(".villain").append(player.villain.render());
-
-        if (villainHP <= 5) {
-            $(".villainHP").attr("class", "btn btn-danger");
-        } else if (villainHP <= 12) {
-            $(".villainHP").attr("class", "btn btn-warning");
-        }
-
-        if (player.villain.health <= 0) {
+    let checkGameOVer = (hp) => {
+        if (hp <= 0) {
             alert(`${player.hero.name} won! ${player.villain.name} lost!`);
             location = location;
         }
+    }
+    let HPbars = (HP, selector) => {
+        if (HP <= 5) {
+            $(selector).attr("class", "btn btn-danger");
+        } else if (HP <= 12) {
+            $(selector).attr("class", "btn btn-warning");
+        }
+    }
+    // hero attack button
+    $(".hero").on("click", ".heroAttack", function () {
+        player.hero.attack(player.villain);
+        let villainHP = player.villain.health;
+        let selector = ".villainHP";
+
+        $(".villain").empty();
+        $(".villain").append(player.villain.render());
+        HPbars(villainHP, selector);
+        checkGameOVer(villainHP);
     });
     // vilain attack button
     $(".villain").on("click", ".villainAttack", function () {
-        let heroHP = player.villain.attack(player.hero);
-        player.hero.health = heroHP;
-
+        player.villain.attack(player.hero);
+        let heroHP = player.hero.health;
+        let selector = ".heroHP";
+        
         $(".hero").empty();
         $(".hero").append(player.hero.render());
-
-        if (heroHP <= 5) {
-            $(".heroHP").attr("class", "btn btn-danger");
-        } else if (heroHP <= 12) {
-            $(".heroHP").attr("class", "btn btn-warning");
-        }
-
-        if (player.hero.health <= 0) {
-            alert(`${player.hero.name} lost... ${player.villain.name} wins!`);
-            location = location;
-        }
+        HPbars(heroHP, selector);
+        checkGameOVer(heroHP);
+        
     });
 
 
