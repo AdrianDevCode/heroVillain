@@ -1,8 +1,4 @@
 class Hero extends Person {
-    constructor(name) {
-        super("Hero");
-        this.name = name;
-    }
     render() {
         let html = ``;
         let hpBar = this.health;

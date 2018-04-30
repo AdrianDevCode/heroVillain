@@ -1,6 +1,6 @@
 class Person {
     constructor(name) {
-        this.name = name;
+        this.name = name || "guy";
         this.health = 20;
         this.weapon = null;
     }
@@ -8,6 +8,15 @@ class Person {
         this.weapon = weapon;
     }
     attack(person) {
-        return person.health - this.weapon.damage;
+
+        if(!person){
+            return console.log("no person was passed");
+        }
+
+        if(this.weapon == null){
+            return console.log("no weapon equipped");
+        }
+        
+        person.health -= this.weapon.damage;
     }
 }

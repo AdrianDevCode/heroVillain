@@ -1,8 +1,4 @@
 class Villain extends Person {
-    constructor(name) {
-        super("Villain");
-        this.name = name;
-    }
     render() {
         let html = ``;
         let hpBar = this.health;
